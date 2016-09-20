@@ -1,0 +1,6 @@
+php artisan make:migration create_password_resets_table
+php artisan make:migration create_user_types_table
+php artisan make:migration create_users_table
+php artisan make:migration create_device_types_table
+php artisan make:migration create_devices_table
+php artisan make:migration create_device_usages_table

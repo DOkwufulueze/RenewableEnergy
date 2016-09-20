@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace RenewableEnergy\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
+use RenewableEnergy\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller

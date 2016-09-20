@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace RenewableEnergy\Http\Controllers\Auth;
 
-use App\User;
+use RenewableEnergy\User;
 use Validator;
-use App\Http\Controllers\Controller;
+use RenewableEnergy\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller
