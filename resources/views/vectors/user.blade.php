@@ -14,26 +14,28 @@
             ?>
             <div class="wrapper">
               @foreach ($userVectors as $key => $value) <!-- // 0: [deviceId: [0...23]] -->
-                <div class="data-row" style="width:2600px;height:20px;">
+                <div class="data-row" style="width:2750px;height:20px;">
                   <div class="data-column" style="background: {{$colorCodes[1]}}">{{$key}}</div>
                 </div>
-                <div class="data-row" style="width:2600px;height:20px;margin-top:1px;">
-                  <?php for ($k=0; $k < 24; $k++) { ?>
-                    <div class="data-column" style="background: {{$colorCodes[1]}};width:100px;">Hour ({{$k + 1}})</div>
+                <div class="data-row" style="width:2750px;height:20px;margin-top:1px;">
+                  <div class="data-column" style="background: {{$colorCodes[1]}};width:100px;">Device</div>
+                  <?php for ($k=1; $k <= 24; $k++) { ?>
+                    <div class="data-column" style="background: {{$colorCodes[1]}};width:100px;">Hours ({{$k}})</div>
                   <?php } ?>
                 </div>
                 @foreach ($value as $key2 => $value2) <!-- // deviceId: [0...23] -->
-                  <div class="data-row" style="width:2600px;height:20px;margin-top:1px;">
+                  <div class="data-row" style="width:2750px;height:20px;margin-top:1px;">
                   @foreach ($value2 as $key3 => $value3) <!-- // 0: [0: energy Requirement] -->
+                  
                     @foreach ($value3 as $key4 => $value4) <!-- // 0: energy Requirement -->
                       @foreach ($value4 as $key5 => $value5) <!-- // energy Requirement -->
-                        <div class="data-column" style="background: {{$colorCodes[$i]}};width:100px;">{{$value5}} J</div>
+                        <div class="data-column" style="background: {{$colorCodes[$i]}};width:100px;">{{$value5}}</div>
                       @endforeach
                     @endforeach
                   </div>
                   @endforeach
                 @endforeach
-                <?php $i += 1 ?>
+                <?php $i = $i % 2 == 0 ? 1 : 0 ?>
                 <div class="line-break"></div>
               @endforeach
             </div>

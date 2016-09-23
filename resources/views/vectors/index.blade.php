@@ -22,7 +22,7 @@
                   <div class="data-column" style="background: {{$colorCodes[$i]}}">{{ $user['name'] }}</div>
                   <div class="data-column" style="background: {{$colorCodes[$i]}}"><a href="vectors/user/{{$user->id}}">View Energy Vector</a></div>
                 </div>
-                <?php $i += 1 ?>
+                <?php $i = $i % 2 == 0 ? 1 : 0 ?>
               @endforeach
             </div>
           @endif
