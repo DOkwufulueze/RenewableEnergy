@@ -32,7 +32,7 @@ class VectorsController extends Controller
     $now = Carbon::now();
     $user = User::find($id);
     $devices = Device::where('user_id', $id)->get();
-    $query = "SELECT SUM(TIMESTAMPDIFF(MINUTE, time_on, IFNULL(time_off, CURTIME()))) AS time_interval, DATE(time_on) AS time_on, device_id, energy_cost_per_hour FROM renewable_energy.device_usages INNER JOIN renewable_energy.devices ON (renewable_energy.devices.id = renewable_energy.device_usages.device_id) WHERE device_id IN (SELECT id FROM renewable_energy.devices WHERE user_id = '$id') GROUP BY DATE(time_on), device_id;";
+    $query = "SELECT SUM(TIMESTAMPDIFF(MINUTE, time_on, IFNULL(time_off, CURTIME()))) AS time_interval, DATE(time_on) AS time_on, device_id, energy_cost_per_hour FROM renewable_energy.device_usages INNER JOIN renewable_energy.devices ON (renewable_energy.devices.id = renewable_energy.device_usages.device_id) WHERE device_id IN (SELECT id FROM renewable_energy.devices WHERE user_id = '$id') GROUP BY DATE(time_on), device_id, energy_cost_per_hour;";
     $deviceUsages = DB::select($query);
     $dateArray = [];
     foreach ($deviceUsages as $deviceUsage) {
