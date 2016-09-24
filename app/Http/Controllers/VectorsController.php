@@ -55,11 +55,15 @@ class VectorsController extends Controller
         array_push($deviceIdTimeArray["$deviceId"], ["$j" => number_format($energyConsumed, 2) . ' J']);
         $timeLeft = $timeIntervalInHours - $i;
         if ($i % 24 == 0) {
-          $timeOnCarbon->addDay();
           $j = 0;
           $userVectors["$timeOnCarbon"][] = $deviceIdTimeArray;
           $deviceIdTimeArray = ["$deviceId" => []];
           array_push($deviceIdTimeArray["$deviceId"], ['name' => $deviceName]);
+          $timeOnCarbon->addDay();
+        } else {
+          if ($i == ceil($timeIntervalInHours)) {
+            $userVectors["$timeOnCarbon"][] = $deviceIdTimeArray;
+          }
         }
         $j += 1;
       }
