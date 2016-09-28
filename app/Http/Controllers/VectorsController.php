@@ -11,6 +11,7 @@ use RenewableEnergy\Device;
 use RenewableEnergy\DeviceUsage;
 use Carbon\Carbon;
 use DB;
+use Auth;
 
 class VectorsController extends Controller
 {

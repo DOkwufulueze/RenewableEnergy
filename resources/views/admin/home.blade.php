@@ -11,9 +11,9 @@
                     <div class="links">
                         <a href="http://localhost:8000/users">Users</a> &middot;
                         <a href="http://localhost:8000/vectors">Vectors</a> &middot;
-                        <a href="http://localhost:8000/devices/create">Create Device</a> &middot;
-                        <a href="http://localhost:8000/devices">Devices</a> &middot;
-                        <a href="http://localhost:8000/usages">Device Usage</a>
+                        <a href="http://localhost:8000/admin/locations">Locations</a> &middot;
+                        <a href="http://localhost:8000/admin/distributors">Distributors</a> &middot;
+                        <a href="http://localhost:8000/admin/location-distributors">Location Distributors</a>
                     </div>
                 </div>
             </div>

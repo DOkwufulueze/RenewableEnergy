@@ -17,21 +17,25 @@ class DevicesController extends Controller
   //
   function index() {
     $user = Auth::user();
-    $devices = Device::where('user_id', $user->id)->get();
-    $deviceArray = array();
-    foreach ($devices as $device) {
-      $deviceType = DeviceType::findOrFail($device->device_type_id);
-      $device = array(
-        'id' => $device->id,
-        'name' => $device->name,
-        'energyCostPerHour' => $device->energy_cost_per_hour,
-        'user' => $user,
-        'deviceType' => $deviceType
-      );
-      array_push($deviceArray, $device);
-    }
+    if ($user->user_type_id == 1) {
+      return Redirect::to('admin/home');
+    } else {
+      $devices = Device::where('user_id', $user->id)->get();
+      $deviceArray = array();
+      foreach ($devices as $device) {
+        $deviceType = DeviceType::findOrFail($device->device_type_id);
+        $device = array(
+          'id' => $device->id,
+          'name' => $device->name,
+          'energyCostPerHour' => $device->energy_cost_per_hour,
+          'user' => $user,
+          'deviceType' => $deviceType
+        );
+        array_push($deviceArray, $device);
+      }
 
-    return view('devices.index', ['devices' => $deviceArray]);
+      return view('devices.index', ['devices' => $deviceArray]);
+    }
   }
 
   /**
@@ -44,7 +48,7 @@ class DevicesController extends Controller
     //
     $device = new Device();
     $deviceTypes = DeviceType::all();
-    return view('devices.create', ['device' => $device, 'deviceTypes' => $deviceTypes, 'user_id' => 1]);
+    return view('devices.create', ['device' => $device, 'deviceTypes' => $deviceTypes]);
   }
 
   /**
@@ -88,7 +92,7 @@ class DevicesController extends Controller
     //
     $deviceTypes = DeviceType::all();
     $device = Device::findOrFail($id);
-    return view('devices.edit', ['device' => $device, 'deviceTypes' => $deviceTypes, 'user_id' => 1]);
+    return view('devices.edit', ['device' => $device, 'deviceTypes' => $deviceTypes]);
   }
 
   /**

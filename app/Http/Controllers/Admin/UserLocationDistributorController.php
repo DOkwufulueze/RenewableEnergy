@@ -1,21 +1,21 @@
 <?php
 
-namespace RenewableEnergy\Http\Controllers;
+namespace RenewableEnergy\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-
 use RenewableEnergy\Http\Requests;
-use RenewableEnergy\User;
+use Illuminate\Support\Facades\Redirect;
+use Auth;
+use RenewableEnergy\Http\Controllers\Controller;
 
 use RenewableEnergy\Admin\LocationDistributor;
 use RenewableEnergy\Admin\Location;
 use RenewableEnergy\Admin\Distributor;
+use RenewableEnergy\User;
 
-class UsersController extends Controller
+class UserLocationDistributorController extends Controller
 {
-  //
   function index() {
-    //
     $users = User::where('user_type_id', 2)->get();
     $userLocationDistributorsArray = array();
     foreach ($users as $user) {
@@ -30,28 +30,7 @@ class UsersController extends Controller
       ));
     }
 
-    return view('users.index', ['userLocationDistributors' => $userLocationDistributorsArray, 'users' => $users]);
-  }
-
-  /**
-   * Show the form for creating a new resource.
-   *
-   * @return \Illuminate\Http\Response
-   */
-  public function create()
-  {
-    //
-  }
-
-  /**
-   * Store a newly created resource in storage.
-   *
-   * @param  \Illuminate\Http\Request  $request
-   * @return \Illuminate\Http\Response
-   */
-  public function store(Request $request)
-  {
-    //
+    return view('admin.user-location-distributors.index', ['userLocationDistributors' => $userLocationDistributorsArray, 'users' => $users]);
   }
 
   /**
@@ -74,6 +53,20 @@ class UsersController extends Controller
   public function edit($id)
   {
     //
+    $user = User::findOrFail($id);
+    $locationDistributors = LocationDistributor::all();
+    $locationDistributorsArray = array();
+    foreach ($locationDistributors as $locationDistributor) {
+      $location = Location::find($locationDistributor->location_id);
+      $distributor = Distributor::find($locationDistributor->distributor_id);
+      array_push($locationDistributorsArray, array(
+        'id' => $locationDistributor->id,
+        'location' => $location->name,
+        'distributor' => $distributor->name
+      ));
+    }
+
+    return view('admin.user-location-distributors.edit', ['user' => $user, 'locationDistributors' => $locationDistributorsArray]);
   }
 
   /**
@@ -86,16 +79,13 @@ class UsersController extends Controller
   public function update(Request $request, $id)
   {
     //
-  }
-
-  /**
-   * Remove the specified resource from storage.
-   *
-   * @param  int  $id
-   * @return \Illuminate\Http\Response
-   */
-  public function destroy($id)
-  {
-    //
+    $user = User::findOrFail($id);
+    if (is_null($user)) {
+      return Redirect::to('admin/user-location-distributors');
+    } else {
+      $user->location_distributor_id = $request['location_distributor_id'];
+      $user->save();
+      return Redirect::to('admin/user-location-distributors');
+    }
   }
 }

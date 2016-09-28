@@ -1,36 +1,21 @@
 <?php
 
-namespace RenewableEnergy\Http\Controllers;
+namespace RenewableEnergy\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-
 use RenewableEnergy\Http\Requests;
-use RenewableEnergy\User;
+use Illuminate\Support\Facades\Redirect;
+use Auth;
+use RenewableEnergy\Http\Controllers\Controller;
 
-use RenewableEnergy\Admin\LocationDistributor;
 use RenewableEnergy\Admin\Location;
-use RenewableEnergy\Admin\Distributor;
 
-class UsersController extends Controller
+class LocationsController extends Controller
 {
   //
   function index() {
-    //
-    $users = User::where('user_type_id', 2)->get();
-    $userLocationDistributorsArray = array();
-    foreach ($users as $user) {
-      $locationDistributorId = $user->location_distributor_id;
-      $location = $locationDistributorId != 0 ? Location::find(LocationDistributor::find($locationDistributorId)->location_id) : array('name' => 'Not Set');
-      $distributor = $locationDistributorId != 0 ? Distributor::find(LocationDistributor::find($locationDistributorId)->distributor_id) : array('name' => 'Not Set');
-      array_push($userLocationDistributorsArray, array(
-        'id' => $user->id,
-        'user' => $user,
-        'location' => $location,
-        'distributor' => $distributor
-      ));
-    }
-
-    return view('users.index', ['userLocationDistributors' => $userLocationDistributorsArray, 'users' => $users]);
+    $locations = Location::all();
+    return view('admin.locations.index', ['locations' => $locations]);
   }
 
   /**
@@ -41,6 +26,8 @@ class UsersController extends Controller
   public function create()
   {
     //
+    $location = new Location();
+    return view('admin.locations.create', ['location' => $location]);
   }
 
   /**
@@ -52,6 +39,11 @@ class UsersController extends Controller
   public function store(Request $request)
   {
     //
+    Location::create([
+      'name' => $request['name']
+    ]);
+
+    return Redirect::to('admin/locations');
   }
 
   /**
@@ -74,6 +66,8 @@ class UsersController extends Controller
   public function edit($id)
   {
     //
+    $location = Location::findOrFail($id);
+    return view('admin.locations.edit', ['location' => $location]);
   }
 
   /**
@@ -86,6 +80,16 @@ class UsersController extends Controller
   public function update(Request $request, $id)
   {
     //
+    $location = Location::findOrFail($id);
+    if (is_null($location)) {
+      return Redirect::to('devices');
+    } else {
+      $location->update([
+        'name' => $request['name']
+      ]);
+
+      return Redirect::to('admin/locations');
+    }
   }
 
   /**
@@ -97,5 +101,8 @@ class UsersController extends Controller
   public function destroy($id)
   {
     //
+    $location = Location::findOrFail($id);
+    $location->delete();
+    return Redirect::to('admin/locations');
   }
 }

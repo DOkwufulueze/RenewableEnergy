@@ -1,36 +1,21 @@
 <?php
 
-namespace RenewableEnergy\Http\Controllers;
+namespace RenewableEnergy\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-
 use RenewableEnergy\Http\Requests;
-use RenewableEnergy\User;
+use Illuminate\Support\Facades\Redirect;
+use Auth;
+use RenewableEnergy\Http\Controllers\Controller;
 
-use RenewableEnergy\Admin\LocationDistributor;
-use RenewableEnergy\Admin\Location;
 use RenewableEnergy\Admin\Distributor;
 
-class UsersController extends Controller
+class DistributorsController extends Controller
 {
   //
   function index() {
-    //
-    $users = User::where('user_type_id', 2)->get();
-    $userLocationDistributorsArray = array();
-    foreach ($users as $user) {
-      $locationDistributorId = $user->location_distributor_id;
-      $location = $locationDistributorId != 0 ? Location::find(LocationDistributor::find($locationDistributorId)->location_id) : array('name' => 'Not Set');
-      $distributor = $locationDistributorId != 0 ? Distributor::find(LocationDistributor::find($locationDistributorId)->distributor_id) : array('name' => 'Not Set');
-      array_push($userLocationDistributorsArray, array(
-        'id' => $user->id,
-        'user' => $user,
-        'location' => $location,
-        'distributor' => $distributor
-      ));
-    }
-
-    return view('users.index', ['userLocationDistributors' => $userLocationDistributorsArray, 'users' => $users]);
+    $distributors = Distributor::all();
+    return view('admin.distributors.index', ['distributors' => $distributors]);
   }
 
   /**
@@ -41,6 +26,8 @@ class UsersController extends Controller
   public function create()
   {
     //
+    $distributor = new Distributor();
+    return view('admin.distributors.create', ['distributor' => $distributor]);
   }
 
   /**
@@ -52,6 +39,11 @@ class UsersController extends Controller
   public function store(Request $request)
   {
     //
+    Distributor::create([
+      'name' => $request['name']
+    ]);
+
+    return Redirect::to('admin/distributors');
   }
 
   /**
@@ -74,6 +66,8 @@ class UsersController extends Controller
   public function edit($id)
   {
     //
+    $distributor = Distributor::findOrFail($id);
+    return view('admin.distributors.edit', ['distributor' => $distributor]);
   }
 
   /**
@@ -86,6 +80,16 @@ class UsersController extends Controller
   public function update(Request $request, $id)
   {
     //
+    $distributor = Distributor::findOrFail($id);
+    if (is_null($distributor)) {
+      return Redirect::to('admin/distributors');
+    } else {
+      $distributor->update([
+        'name' => $request['name']
+      ]);
+
+      return Redirect::to('admin/distributors');
+    }
   }
 
   /**
@@ -97,5 +101,8 @@ class UsersController extends Controller
   public function destroy($id)
   {
     //
+    $distributor = Distributor::findOrFail($id);
+    $distributor->delete();
+    return Redirect::to('admin/distributors');
   }
 }

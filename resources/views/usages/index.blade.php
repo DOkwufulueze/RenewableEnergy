@@ -41,7 +41,7 @@
               <a href="http://localhost:8000">Home</a>
               <a href="http://localhost:8000/users">Users</a>
               <a href="http://localhost:8000/devices">Devices</a>
-              <a href="http://localhost:8000/devices/create">Create New Device</a>
+              <a href="http://localhost:8000/devices/create">Create Device</a>
               <a href="http://localhost:8000/vectors">Energy Vectors</a>
             </div>
           </div>

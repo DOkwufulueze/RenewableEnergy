@@ -15,22 +15,26 @@ class DeviceUsagesController extends Controller
   //
   function index() {
     $user = Auth::user();
-    $devices = Device::where('user_id', $user->id)->get();
-    $deviceArray = array();
-    foreach ($devices as $device) {
-      $deviceType = DeviceType::findOrFail($device->device_type_id);
-      $deviceIsOn = DeviceUsage::where('device_id', $device->id)->where('time_off', null)->first();
-      $device = array(
-        'id' => $device->id,
-        'name' => $device->name,
-        'energyCostPerHour' => $device->energy_cost_per_hour,
-        'user' => $user,
-        'switchStatus' => is_null($deviceIsOn) ? '0' : '1'
-      );
-      array_push($deviceArray, $device);
-    }
+    if ($user->user_type_id == 1) {
+      return Redirect::to('admin/home');
+    } else {
+      $devices = Device::where('user_id', $user->id)->get();
+      $deviceArray = array();
+      foreach ($devices as $device) {
+        $deviceType = DeviceType::findOrFail($device->device_type_id);
+        $deviceIsOn = DeviceUsage::where('device_id', $device->id)->where('time_off', null)->first();
+        $device = array(
+          'id' => $device->id,
+          'name' => $device->name,
+          'energyCostPerHour' => $device->energy_cost_per_hour,
+          'user' => $user,
+          'switchStatus' => is_null($deviceIsOn) ? '0' : '1'
+        );
+        array_push($deviceArray, $device);
+      }
 
-    return view('usages.index', ['devices' => $deviceArray]);
+      return view('usages.index', ['devices' => $deviceArray]);
+    }
   }
 
   function switchDevice() {
