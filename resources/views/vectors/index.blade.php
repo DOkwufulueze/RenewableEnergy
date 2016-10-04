@@ -20,7 +20,7 @@
               @foreach ($users as $user)
                 <div class="data-row">
                   <div class="data-column" style="background: {{$colorCodes[$i]}}">{{ $user['name'] }}</div>
-                  <div class="data-column" style="background: {{$colorCodes[$i]}}"><a href="vectors/user/{{$user->id}}">View Energy Vector</a></div>
+                  <div class="data-column" style="background: {{$colorCodes[$i]}}"><a href="vectors/user/{{$user['id']}}">View Energy Vector</a></div>
                 </div>
                 <?php $i = $i % 2 == 0 ? 1 : 0 ?>
               @endforeach
@@ -30,17 +30,19 @@
           <div class="line-break"></div>
           <div class="line-break"></div>
           <div class="links">
-            @if (Auth::user()->user_type_id == 2)
-              <a href="http://localhost:8000">Home</a>
-              <a href="http://localhost:8000/users">Users</a>
-              <a href="http://localhost:8000/devices">Devices</a>
-              <a href="http://localhost:8000/devices/create">Create Device</a>
-              <a href="http://localhost:8000/usages">Device Usage</a>
-            @elseif (Auth::user()->user_type_id == 1)
-              <a href="http://localhost:8000/users">Users</a>
-              <a href="http://localhost:8000/admin/locations">Locations</a>
-              <a href="http://localhost:8000/admin/distributors">Distributors</a>
-              <a href="http://localhost:8000/admin/location-distributors">Location Distributors
+            @if (Auth::user()) 
+              @if (Auth::user()->user_type_id == 2)
+                <a href="http://localhost:8000">Home</a>
+                <a href="http://localhost:8000/users">Users</a>
+                <a href="http://localhost:8000/devices">Devices</a>
+                <a href="http://localhost:8000/devices/create">Create Device</a>
+                <a href="http://localhost:8000/usages">Device Usage</a>
+              @elseif (Auth::user()->user_type_id == 1)
+                <a href="http://localhost:8000/users">Users</a>
+                <a href="http://localhost:8000/admin/locations">Locations</a>
+                <a href="http://localhost:8000/admin/distributors">Distributors</a>
+                <a href="http://localhost:8000/admin/location-distributors">Location Distributors
+              @endif
             @endif
           </div>
         </div>

@@ -44,17 +44,19 @@
           <div class="line-break"></div>
           <div class="line-break"></div>
           <div class="links">
-            @if (Auth::user()->user_type_id == 2)
-              <a href="http://localhost:8000">Home</a>
-              <a href="http://localhost:8000/devices">Devices</a>
-              <a href="http://localhost:8000/devices/create">Create Device</a>
-              <a href="http://localhost:8000/usages">Device Usage</a>
-              <a href="http://localhost:8000/vectors">Energy Vectors</a>
-            @elseif (Auth::user()->user_type_id == 1)
-              <a href="http://localhost:8000/vectors">Vectors</a>
-              <a href="http://localhost:8000/admin/locations">Locations</a>
-              <a href="http://localhost:8000/admin/distributors">Distributors</a>
-              <a href="http://localhost:8000/admin/location-distributors">Location Distributors
+            @if (Auth::user())
+              @if (Auth::user()->user_type_id == 2)
+                <a href="http://localhost:8000">Home</a>
+                <a href="http://localhost:8000/devices">Devices</a>
+                <a href="http://localhost:8000/devices/create">Create Device</a>
+                <a href="http://localhost:8000/usages">Device Usage</a>
+                <a href="http://localhost:8000/vectors">Energy Vectors</a>
+              @elseif (Auth::user()->user_type_id == 1)
+                <a href="http://localhost:8000/vectors">Vectors</a>
+                <a href="http://localhost:8000/admin/locations">Locations</a>
+                <a href="http://localhost:8000/admin/distributors">Distributors</a>
+                <a href="http://localhost:8000/admin/location-distributors">Location Distributors
+              @endif
             @endif
           </div>
         </div>
