@@ -5,7 +5,7 @@
   <div class="row">
     <div class="col-md-8 col-md-offset-2">
       <div class="panel panel-default">
-        <div class="panel-heading">New Device</div>
+        <div class="panel-heading">New Location Distributor</div>
         <div class="panel-body">
           {{Form::model($locationDistributor, ['route' => ['location-distributors.store', $locationDistributor->id], 'class' => 'form-horizontal', 'role' => 'form'])}}
             {{ csrf_field() }}

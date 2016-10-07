@@ -12,7 +12,7 @@
               $i = 0;
               $colorCodes = ['#dedede', '#efefef'];
             ?>
-            <!-- <div> BY USERS </div> -->
+            <div> BY USERS </div>
             <div class="wrapper" style="max-height:100px;overflow:auto;">
               <div>
                 <div class="data-row">
@@ -29,22 +29,22 @@
               </div>
             </div>
 
-            <!-- <div> BY DISTRIBUTORS </div>
+            <div> BY ENERGY DISTRIBUTORS </div>
             <div class="wrapper" style="max-height:100px;overflow:auto;">
               <div>
                 <div class="data-row">
                   <div class="data-column" style="background: {{$colorCodes[1]}}">NAME</div>
                   <div class="data-column" style="background: {{$colorCodes[1]}}">ACTION</div>
                 </div>
-                @foreach ($users as $user)
+                @foreach ($energyDistributors as $energyDistributor)
                   <div class="data-row">
-                    <div class="data-column" style="background: {{$colorCodes[$i]}}">{{ $user['name'] }}</div>
-                    <div class="data-column" style="background: {{$colorCodes[$i]}}"><a href="vectors/user/{{$user['id']}}">View Energy Vector</a></div>
+                    <div class="data-column" style="background: {{$colorCodes[$i]}}">{{ $energyDistributor['name'] }}</div>
+                    <div class="data-column" style="background: {{$colorCodes[$i]}}"><a href="vectors/energy-distributor/{{$energyDistributor['id']}}">View Energy Vector</a></div>
                   </div>
                   <?php $i = $i % 2 == 0 ? 1 : 0 ?>
                 @endforeach
               </div>
-            </div> -->
+            </div>
           @endif
           <div class="line-break"></div>
           <div class="line-break"></div>

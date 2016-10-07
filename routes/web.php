@@ -23,3 +23,4 @@ Route::get('/home', 'HomeController@index');
 Route::resource('users', 'UsersController');
 Route::get('/vectors', 'VectorsController@index');
 Route::get('/vectors/user/{id}', 'VectorsController@user');
+Route::get('/vectors/energy-distributor/{id}', 'VectorsController@energyDistributor');

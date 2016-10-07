@@ -54,7 +54,7 @@ html, body {
   min-height: 200px;
   margin: auto;
   overflow: auto;
-  margin: 30px auto;
+  margin: 10px auto 40px auto;
 }
 
 .data-row {
