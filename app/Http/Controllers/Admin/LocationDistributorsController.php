@@ -27,7 +27,7 @@ class LocationDistributorsController extends Controller
         'id' => $locationDistributor->id,
         'location' => $location->name,
         'distributor' => $distributor->name,
-        'scheduled_energy_per_hour' => $energyPerHour
+        'scheduled_energy_per_hour' => json_decode($energyPerHour)
       ));
     }
 
@@ -60,7 +60,7 @@ class LocationDistributorsController extends Controller
     LocationDistributor::create([
       'location_id' => $request['location_id'],
       'distributor_id' => $request['distributor_id'],
-      'scheduled_energy_per_hour' => $request['scheduled_energy_per_hour']
+      'scheduled_energy_per_hour' => json_encode($request['scheduled_energy_per_hour'])
     ]);
 
     return Redirect::to('admin/location-distributors');
@@ -107,7 +107,7 @@ class LocationDistributorsController extends Controller
       return Redirect::to('admin/location-distributors');
     } else {
       $locationDistributor->update([
-        'scheduled_energy_per_hour' => $request['scheduled_energy_per_hour']
+        'scheduled_energy_per_hour' => json_encode($request['scheduled_energy_per_hour'])
       ]);
 
       return Redirect::to('admin/location-distributors');

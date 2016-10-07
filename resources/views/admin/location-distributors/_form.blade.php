@@ -35,17 +35,18 @@
 </div>
 
 <div class="form-group{{ $errors->has('scheduled_energy_per_hour') ? ' has-error' : '' }}">
-  <label for="scheduled_energy_per_hour" class="col-md-4 control-label">Scheduled Energy / Hour</label>
+  @for ($i = 0; $i < 24; $i++)
+    <label for="scheduled_energy_per_hour<?php echo $i; ?>" class="col-md-4 control-label">Scheduled Energy for Hour <?php echo $i + 1; ?></label>
+    <div class="col-md-6">
+      <input type="number" id="scheduled_energy_per_hour<?php echo $i; ?>" type="scheduled_energy_per_hour" class="form-control" name="scheduled_energy_per_hour[]" value="{{ json_decode($locationDistributor->scheduled_energy_per_hour)[$i] ? json_decode($locationDistributor->scheduled_energy_per_hour)[$i] : 0 }}" placeholder="Hour <?php echo $i + 1; ?> Default = 0">
 
-  <div class="col-md-6">
-    <input type="number" id="scheduled_energy_per_hour" type="scheduled_energy_per_hour" class="form-control" name="scheduled_energy_per_hour" value="{{ $locationDistributor->scheduled_energy_per_hour }}" required>
-
-    @if ($errors->has('scheduled_energy_per_hour'))
-      <span class="help-block">
-        <strong>{{ $errors->first('scheduled_energy_per_hour') }}</strong>
-      </span>
-    @endif
-  </div>
+      @if ($errors->has('scheduled_energy_per_hour'))
+        <span class="help-block">
+          <strong>{{ $errors->first('scheduled_energy_per_hour') }}</strong>
+        </span>
+      @endif
+    </div>
+  @endfor
 </div>
 
 <div class="form-group">

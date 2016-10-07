@@ -18,7 +18,7 @@ class CreateLocationDistributors extends Migration
       $table->increments('id');
       $table->integer('location_id')->unsigned();
       $table->integer('distributor_id')->unsigned();
-      $table->decimal('scheduled_energy_per_hour');
+      $table->string('scheduled_energy_per_hour');
       $table->timestamps();
     });
 

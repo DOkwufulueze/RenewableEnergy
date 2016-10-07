@@ -13,22 +13,26 @@
               $colorCodes = ['#dedede', '#efefef'];
             ?>
             <div class="wrapper">
-              <div class="data-row" style="width:920px;height:20px;">
-                <div class="data-column" style="background: {{$colorCodes[1]}}; width:250px;">LOCATION</div>
-                <div class="data-column" style="background: {{$colorCodes[1]}}; width: 250px;">DISTRIBUTOR</div>
-                <div class="data-column" style="background: {{$colorCodes[1]}}; width: 200px;">SCHEDULED ENERGY PER HOUR</div>
-                <div class="data-column" style="background: #ffffff; width: 50px;height:20px;"> </div>
-                <div class="data-column" style="background: #ffffff; width: 50px;height:20px;"> </div>
+              <div class="data-row" style="width:920px;height:35px;">
+                <div class="data-column" style="background: {{$colorCodes[1]}}; width:250px;height:35px;float:left;line-height:35px;">LOCATION</div>
+                <div class="data-column" style="background: {{$colorCodes[1]}}; width: 250px;height:35px;float:left;line-height:35px;">DISTRIBUTOR</div>
+                <div class="data-column" style="background: {{$colorCodes[1]}}; width: 300px;height:35px;float:left;line-height:35px;">SCHEDULED ENERGY PER HOUR</div>
+                <div class="data-column" style="background: #ffffff; width: 50px;height:35px;float:left;line-height:35px;"> </div>
+                <div class="data-column" style="background: #ffffff; width: 50px;height:35px;float:left;line-height:35px;"> </div>
               </div>
               @foreach ($locationDistributors as $locationDistributor)
-                <div class="data-row" style="width:920px;height:20px;">
-                  <div class="data-column" style="background: {{$colorCodes[$i]}}; width: 250px;">{{ $locationDistributor['location'] }}</div>
-                  <div class="data-column" style="background: {{$colorCodes[$i]}}; width: 250px;">{{ $locationDistributor['distributor'] }}</div>
-                  <div class="data-column" style="background: {{$colorCodes[$i]}}; width: 200px;">{{ $locationDistributor['scheduled_energy_per_hour'] }} Joules</div>
-                  <div class="data-column" style="background: {{$colorCodes[$i]}}; width: 50px;"><a href="location-distributors/{{$locationDistributor['id']}}/edit">Edit</a></div>
-                  <div class="data-column" style="background: {{$colorCodes[$i]}}; width: 50px;">
+                <div class="data-row" style="width:920px;height:35px;float:left;">
+                  <div class="data-column" style="background: {{$colorCodes[$i]}}; width: 250px;height:35px;float:left;line-height:35px;">{{ $locationDistributor['location'] }}</div>
+                  <div class="data-column" style="background: {{$colorCodes[$i]}}; width: 250px;height:35px;float:left;line-height:35px;">{{ $locationDistributor['distributor'] }}</div>
+                  <div class="data-column" style="background: {{$colorCodes[$i]}}; width: 300px;height:35px;float:left;line-height:20px;overflow:auto;">
+                    @foreach ($locationDistributor['scheduled_energy_per_hour'] as $index => $energyCost)
+                      (Hour {{$index + 1}} : {{ $energyCost }} J)<br>
+                    @endforeach
+                  </div>
+                  <div class="data-column" style="background: {{$colorCodes[$i]}}; width: 50px;height:35px;float:left;line-height:35px;"><a href="location-distributors/{{$locationDistributor['id']}}/edit">Edit</a></div>
+                  <div class="data-column" style="background: {{$colorCodes[$i]}}; width: 50px;height:35px;float:left;line-height:35px;">
                     {{Form::open(['method' => 'DELETE', 'route' => ['location-distributors.destroy', $locationDistributor['id']]])}}
-                      {{Form::submit('Delete', ['class' => 'delete-button', 'style' => 'height:20px;font-size:11px;', 'onmousedown' => 'confirmDelete(this)'])}}
+                      {{Form::submit('Delete', ['class' => 'delete-button', 'style' => 'height:35px;font-size:11px;', 'onmousedown' => 'confirmDelete(this)'])}}
                     {{Form::close()}}
                   </div>
                 </div>
