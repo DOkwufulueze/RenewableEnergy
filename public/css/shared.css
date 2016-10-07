@@ -54,6 +54,7 @@ html, body {
   min-height: 200px;
   margin: auto;
   overflow: auto;
+  margin: 30px auto;
 }
 
 .data-row {
@@ -64,7 +65,7 @@ html, body {
   text-align: center;
   margin: 1px;
   display: inline-block;
-  width: 350px;
+  width: 340px;
   height: 20px;
   font-size: 12px;
 }
